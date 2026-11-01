@@ -109,6 +109,10 @@ body {
     0 12px 32px -16px rgba(15, 28, 69, 0.18);
 }
 
+@keyframes beam-flow {
+  to { stroke-dashoffset: -40; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
