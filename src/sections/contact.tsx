@@ -40,7 +40,7 @@ export function Contact() {
               <span className="size-1.5 rounded-full bg-white" /> Contact
             </span>
             <h2 className="mx-auto mt-6 max-w-4xl font-serif text-5xl leading-[1.02] text-balance sm:text-7xl">
-              If your funnel leaks between demo and paid POC, <span className="text-brand-200 italic">you don't have to untangle it alone.</span>
+              Need more demos on the calendar? <span className="text-brand-200 italic">Tell me your monthly target.</span>
             </h2>
 
             <div className="mt-11 flex flex-col items-center justify-center gap-3 sm:flex-row">

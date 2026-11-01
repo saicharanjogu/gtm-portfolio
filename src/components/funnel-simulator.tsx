@@ -1,40 +1,39 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
-import { BarChart3, CheckCircle2, Factory, FlaskConical, Lock, Presentation, Target, TrendingDown, X } from 'lucide-react'
+import { CalendarCheck, CheckCircle2, Lock, Presentation, ShieldCheck, Target, TrendingDown, X } from 'lucide-react'
 import { cn } from '../lib/utils'
 
-// The hero's "aha": the same pipeline, with and without someone owning the handoffs.
-// Deals flow along the track; at each handoff they either leak (with the real reason) or pass a lock.
-// Rates are illustrative: unowned, ~20% of deals reach production, matching "80% of POCs stall".
+// The hero's "aha": the same leads, with and without someone owning demos per month.
+// Leads flow along the track; at each handoff they either leak (with the real reason) or pass a lock.
+// Illustrative rates: unowned ~12% of leads become demos; owned ~33%, which is my real 198 -> 65 record.
 
 type Mode = 'leaky' | 'owned'
 
 const W = 1000
 const H = 220
 const TRACK_Y = 92
-const stageX = [70, 285, 500, 715, 930]
+const stageX = [80, 360, 640, 920]
 const stages = [
   { name: 'Lead gen', icon: Target },
-  { name: 'Demos', icon: Presentation },
-  { name: 'Value eng.', icon: BarChart3 },
-  { name: 'Paid POC', icon: FlaskConical },
-  { name: 'Production', icon: Factory },
+  { name: 'Qualified', icon: ShieldCheck },
+  { name: 'Booked', icon: CalendarCheck },
+  { name: 'Demo held', icon: Presentation },
 ]
 const gaps = [
-  { leak: 'Not ICP-qualified', why: 'Lead never qualified against ICP', lock: 'ICP fit first' },
-  { leak: 'No buying test', why: 'Demo never tested a buying decision', lock: 'Success criteria agreed' },
-  { leak: "ROI didn't hold", why: "Value case failed the CFO's second question", lock: 'Champion-ready ROI' },
-  { leak: 'Procurement came late', why: 'Security and procurement entered late', lock: 'Decision path mapped' },
+  { leak: 'Not ICP-fit', why: 'Lead was never qualified against ICP', lock: 'ICP fit first' },
+  { leak: 'Went cold', why: 'Interest faded before a slot was booked', lock: 'Follow-up owned' },
+  { leak: 'No-show', why: 'Demo booked, buyer never showed', lock: 'Prep + reminders' },
 ]
 const wins = [
-  'Data scope agreed before day one',
-  'Success criteria set with the buyer',
-  'Champion walked in with a defensible ROI',
-  'Security and procurement mapped early',
-  'Next buying step defined before kickoff',
+  'ICP-fit lead, booked and held',
+  'Success criteria agreed up front',
+  'Buyer showed up prepared',
+  'Next step set before the call ended',
+  'Logged cleanly in the CRM',
 ]
 const gapX = gaps.map((_, i) => (stageX[i] + stageX[i + 1]) / 2)
-const LEAK_P: Record<Mode, number> = { leaky: 0.33, owned: 0.04 }
+const LAST = stageX.length - 1
+const LEAK_P: Record<Mode, number> = { leaky: 0.5, owned: 0.31 }
 const SPEED = 230 // viewBox units per second
 const SPAWN_MS = 300
 const WINDOW = 16
@@ -44,15 +43,15 @@ type Event = { id: number; kind: 'leak' | 'win' | 'info'; text: string; sub?: st
 
 const pct = (o: boolean[]) => Math.round((o.filter(Boolean).length / o.length) * 100)
 
-// Start mid-flow: a recent history at the unowned rate (3 of 16 ≈ 19%) and a pipeline already full of deals.
-const SEED = Array.from({ length: WINDOW }, (_, i) => i % 5 === 2)
+// Start mid-flow: a recent history at the unowned rate (2 of 16 ≈ 13%) and a track already full of leads.
+const SEED = Array.from({ length: WINDOW }, (_, i) => i % 8 === 2)
 function seedDots(): Dot[] {
   const out: Dot[] = []
   const step = (SPEED * SPAWN_MS) / 1000
-  for (let x = stageX[0] + step, id = -1; x < stageX[4]; x += step, id--) {
+  for (let x = stageX[0] + step, id = -1; x < stageX[LAST]; x += step, id--) {
     out.push({ id, x, y: TRACK_Y, vy: 0, o: 1, next: gapX.filter((g) => g < x).length, state: 'flow' })
   }
-  // Thin the seeded deals the way the leaky pipeline would, so later stages start sparser.
+  // Thin the seeded leads the way the unowned track would, so later stages start sparser.
   return out.filter((d) => Math.random() < Math.pow(1 - LEAK_P.leaky, d.next))
 }
 
@@ -60,8 +59,8 @@ export function FunnelSimulator() {
   const [mode, setMode] = useState<Mode>('leaky')
   const [, setFrame] = useState(0)
   const [events, setEvents] = useState<Event[]>([])
-  const [flash, setFlash] = useState<number[]>([0, 0, 0, 0])
-  const [rate, setRate] = useState<number | null>(() => pct(SEED))
+  const [flash, setFlash] = useState<number[]>([0, 0, 0])
+  const [rate, setRate] = useState<number>(() => pct(SEED))
 
   const [initialDots] = useState(seedDots)
   const dots = useRef<Dot[]>(initialDots)
@@ -85,11 +84,11 @@ export function FunnelSimulator() {
     if (m === modeRef.current) return
     modeRef.current = m
     setMode(m)
-    // Keep the outcome window so the counter visibly climbs (or drops) as new deals finish.
+    // Keep the outcome window so the counter visibly climbs (or drops) as new leads finish.
     pushEvent(
       m === 'owned'
-        ? { kind: 'info', text: 'Handoffs owned end to end', sub: 'Watch the leaks stop' }
-        : { kind: 'info', text: 'Nobody owns the handoffs', sub: 'Deals start slipping between stages' },
+        ? { kind: 'info', text: 'Demos per month: owned', sub: 'Watch the leaks close' }
+        : { kind: 'info', text: 'Nobody owns the number', sub: 'Leads start slipping between stages' },
       true,
     )
   }
@@ -129,15 +128,15 @@ export function FunnelSimulator() {
             if (Math.random() < LEAK_P[modeRef.current]) {
               d.state = 'leak'
               setFlash((f) => f.map((v, i) => (i === g ? now : v)))
-              pushEvent({ kind: 'leak', text: `Stalled: ${stages[g].name} → ${stages[g + 1].name}`, sub: gaps[g].why })
+              pushEvent({ kind: 'leak', text: `Lost: ${stages[g].name} → ${stages[g + 1].name}`, sub: gaps[g].why })
               record(false)
             }
           }
-          if (d.state === 'flow' && d.x >= stageX[4]) {
+          if (d.state === 'flow' && d.x >= stageX[LAST]) {
             d.state = 'done'
             record(true)
             if (modeRef.current === 'owned') {
-              pushEvent({ kind: 'win', text: 'Deal reached production', sub: wins[winIdx.current++ % wins.length] })
+              pushEvent({ kind: 'win', text: 'Demo held', sub: wins[winIdx.current++ % wins.length] })
             }
           }
         } else if (d.state === 'leak') {
@@ -184,18 +183,18 @@ export function FunnelSimulator() {
                     className={cn('absolute inset-0 -z-10 rounded-full', m === 'owned' ? 'bg-brand-600' : 'card-shadow bg-white')}
                   />
                 )}
-                {m === 'leaky' ? 'No one owns handoffs' : 'I own the handoffs'}
+                {m === 'leaky' ? 'No one owns the number' : 'I own the number'}
               </button>
             ))}
           </div>
 
           <div className="flex items-end gap-3">
             <div className="text-right">
-              <p className="text-[12px] text-muted">Deals reaching production</p>
-              <p className="text-[11px] text-muted/70">Illustrative, live</p>
+              <p className="text-[12px] text-muted">Leads becoming demos</p>
+              <p className="text-[11px] text-muted/70">Illustrative · owned ≈ my real 198 → 65</p>
             </div>
             <div className={cn('min-w-[4.5ch] text-right font-serif text-5xl leading-none tabular-nums transition-colors', owned ? 'text-brand-600' : 'text-ink')}>
-              {rate === null ? '–' : `${rate}%`}
+              {rate}%
             </div>
           </div>
         </div>
@@ -206,7 +205,7 @@ export function FunnelSimulator() {
             <svg viewBox={`0 0 ${W} ${H}`} className="absolute inset-0 h-full w-full" aria-hidden>
               <defs>
                 {/* userSpaceOnUse: a bounding-box gradient on a horizontal line has zero height and renders nothing */}
-                <linearGradient id="beam" gradientUnits="userSpaceOnUse" x1={stageX[0]} x2={stageX[4]} y1={0} y2={0}>
+                <linearGradient id="beam" gradientUnits="userSpaceOnUse" x1={stageX[0]} x2={stageX[LAST]} y1={0} y2={0}>
                   <stop offset="0" stopColor="var(--color-brand-300)" />
                   <stop offset="1" stopColor="var(--color-brand-600)" />
                 </linearGradient>
@@ -257,7 +256,7 @@ export function FunnelSimulator() {
             {/* Stage nodes */}
             {stages.map((s, i) => {
               const Icon = s.icon
-              const last = i === stages.length - 1
+              const last = i === LAST
               return (
                 <div
                   key={s.name}
@@ -266,18 +265,18 @@ export function FunnelSimulator() {
                 >
                   <div
                     className={cn(
-                      'card-shadow grid size-10 place-items-center rounded-xl border transition-colors duration-500 sm:size-14 sm:rounded-2xl',
+                      'card-shadow grid size-11 place-items-center rounded-xl border transition-colors duration-500 sm:size-14 sm:rounded-2xl',
                       last && owned ? 'border-brand-600 bg-brand-600 text-white' : 'border-line bg-white text-brand-600',
                     )}
                   >
-                    <Icon className="size-4 sm:size-6" strokeWidth={1.7} />
+                    <Icon className="size-5 sm:size-6" strokeWidth={1.7} />
                   </div>
-                  <span className="absolute top-full mt-1.5 text-[10px] font-medium whitespace-nowrap sm:mt-2 sm:text-[13px]">{s.name}</span>
+                  <span className="absolute top-full mt-1.5 text-[11px] font-medium whitespace-nowrap sm:mt-2 sm:text-[13px]">{s.name}</span>
                 </div>
               )
             })}
 
-            {/* Gap chips: the reason deals leak, or the lock that stops it */}
+            {/* Gap chips: the reason leads leak, or the lock that stops it */}
             {gaps.map((g, i) => {
               const hot = !owned && now - flash[i] < 700
               return (
@@ -341,7 +340,7 @@ export function FunnelSimulator() {
                 </motion.li>
               ))}
             </AnimatePresence>
-            {events.length === 0 && <li className="self-center text-[13px] text-muted">Deals are entering the pipeline…</li>}
+            {events.length === 0 && <li className="self-center text-[13px] text-muted">Leads are entering the pipeline…</li>}
           </ul>
         </div>
       </div>

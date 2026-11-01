@@ -12,16 +12,7 @@ const fadeUp = (delay: number) => ({
   transition: { duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] as const },
 })
 
-const capabilities = [
-  'ICP-qualified pipeline',
-  'Buyer-agreed success criteria',
-  'Champion-ready ROI cases',
-  'Paid POCs',
-  'Security & procurement mapped early',
-  'Fotos CRM',
-  'Prava CRM',
-  'Production handoff',
-]
+const strip = ['ICP-fit lead gen', 'Qualified before booked', 'Product-led demos', 'Buyer-agreed success criteria', 'Clean CRM notes', 'Fotos CRM', 'Prava CRM', 'Next step on every demo']
 
 export function Hero() {
   return (
@@ -38,42 +29,40 @@ export function Hero() {
           </span>
         </motion.div>
 
-        <h1 className="mx-auto mt-7 max-w-5xl font-serif text-[2.9rem] leading-[0.98] text-balance sm:text-7xl lg:text-[5.2rem]">
-          <BlurText text="You know the funnel is leaking." />{' '}
-          <BlurText text="You just haven't had time to fix it." delay={0.4} wordClassName={() => 'italic text-blue-gradient pr-1'} />
+        <h1 className="mx-auto mt-7 max-w-5xl font-serif text-[3rem] leading-[0.98] text-balance sm:text-7xl lg:text-[5.4rem]">
+          <BlurText text="I own your demos per month." />{' '}
+          <BlurText text="From first lead to demo day." delay={0.35} wordClassName={() => 'italic text-blue-gradient pr-1'} />
         </h1>
 
-        <motion.p {...fadeUp(0.9)} className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-pretty text-muted">
-          I own the GTM path from lead gen → demos → value engineering → paid POC, so your team can stop holding it together manually and
-          start moving deals forward.
+        <motion.p {...fadeUp(0.8)} className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-pretty text-muted">
+          A Product &amp; GTM operator who takes the number personally: lead gen, qualification, booking and running the demo, so your calendar
+          fills with demos worth taking.
         </motion.p>
 
-        <motion.div {...fadeUp(1.05)} className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <ShimmerButton href="#own">
-            See how I run the funnel <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+        <motion.div {...fadeUp(0.95)} className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <ShimmerButton href="#engine">
+            See how I own the number <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
           </ShimmerButton>
           <GhostButton href="#contact">
-            <MessageCircle className="size-4 text-brand-600" /> Tell me where it's stuck
+            <MessageCircle className="size-4 text-brand-600" /> Tell me your monthly demo target
           </GhostButton>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 40, scale: 0.97 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 1, delay: 1.1, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1, delay: 1.05, ease: [0.22, 1, 0.36, 1] }}
           className="mx-auto mt-14 max-w-5xl"
         >
           <p className="mb-4 text-[15px] text-muted">
-            <span className="font-medium text-ink">80% of POCs stall before production.</span> Same pipeline, same team. Watch what changes
-            when someone owns the handoffs.
+            <span className="font-medium text-ink">Same leads, same team.</span> The only difference is who owns demos per month.
           </p>
           <FunnelSimulator />
         </motion.div>
 
         <div className="mt-16">
-          <p className="text-[13px] text-muted">What every handoff gets</p>
-          <Marquee className="mt-5" duration="45s">
-            {capabilities.map((t) => (
+          <Marquee duration="45s">
+            {strip.map((t) => (
               <span key={t} className="font-serif text-2xl whitespace-nowrap text-ink/60">
                 {t}
                 <span className="ml-10 text-brand-300">✦</span>

@@ -1,19 +1,17 @@
 import { FloatingNav } from './components/ui/floating-nav'
 import { Hero } from './sections/hero'
-import { Problem } from './sections/problem'
-import { Own } from './sections/own'
+import { Engine } from './sections/engine'
 import { Proof } from './sections/proof'
-import { Poc } from './sections/poc'
-import { About } from './sections/about'
+import { Role } from './sections/role'
+import { After } from './sections/after'
 import { Contact } from './sections/contact'
 import { profile } from './lib/content'
 
 const nav = [
-  { name: 'Problem', href: '#problem' },
-  { name: 'What I own', href: '#own' },
+  { name: 'What I own', href: '#engine' },
   { name: 'Proof', href: '#proof' },
-  { name: 'POC', href: '#poc' },
-  { name: 'About', href: '#about' },
+  { name: 'Role', href: '#role' },
+  { name: 'After the demo', href: '#after' },
 ]
 
 export default function App() {
@@ -22,11 +20,10 @@ export default function App() {
       <FloatingNav items={nav} brand={profile.name} />
       <main>
         <Hero />
-        <Problem />
-        <Own />
+        <Engine />
         <Proof />
-        <Poc />
-        <About />
+        <Role />
+        <After />
         <Contact />
       </main>
       <footer className="overflow-hidden pt-6">
@@ -43,10 +40,7 @@ export default function App() {
           </div>
         </div>
         {/* Oversized wordmark, a common Framer-template footer motif */}
-        <p
-          aria-hidden
-          className="mt-8 text-center font-serif text-[18vw] leading-[0.8] wordmark whitespace-nowrap select-none"
-        >
+        <p aria-hidden className="wordmark mt-8 text-center font-serif text-[18vw] leading-[0.8] whitespace-nowrap select-none">
           Sai Charan
         </p>
       </footer>
