@@ -68,7 +68,7 @@ export function AnimatedBeam({
       viewBox={`0 0 ${size.w} ${size.h}`}
       className="pointer-events-none absolute top-0 left-0"
     >
-      <path d={path} stroke="var(--line)" strokeWidth={2} strokeLinecap="round" />
+      <path d={path} stroke="var(--color-line)" strokeWidth={2} strokeLinecap="round" />
       <path d={path} stroke={`url(#${id})`} strokeWidth={2.5} strokeLinecap="round" />
       <defs>
         <motion.linearGradient
@@ -78,10 +78,10 @@ export function AnimatedBeam({
           animate={grad}
           transition={{ delay, duration, ease: [0.16, 1, 0.3, 1], repeat: Infinity, repeatDelay: 0.4 }}
         >
-          <stop stopColor="#8b5cf6" stopOpacity="0" />
-          <stop stopColor="#8b5cf6" />
-          <stop offset="32.5%" stopColor="#22d3ee" />
-          <stop offset="100%" stopColor="#22d3ee" stopOpacity="0" />
+          <stop stopColor="#1f4fe0" stopOpacity="0" />
+          <stop stopColor="#1f4fe0" />
+          <stop offset="32.5%" stopColor="#6090fa" />
+          <stop offset="100%" stopColor="#6090fa" stopOpacity="0" />
         </motion.linearGradient>
       </defs>
     </svg>

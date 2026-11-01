@@ -5,7 +5,7 @@ import { cn } from '../../lib/utils'
 export function SpotlightCard({
   children,
   className,
-  color = 'rgba(139,92,246,0.18)',
+  color = 'rgba(59,108,246,0.10)',
 }: {
   children: ReactNode
   className?: string
@@ -24,14 +24,14 @@ export function SpotlightCard({
       }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className={cn('relative overflow-hidden rounded-2xl border border-line bg-surface', className)}
+      className={cn('card-shadow relative overflow-hidden rounded-3xl border border-line bg-white transition-colors hover:border-brand-200', className)}
     >
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 transition-opacity duration-300"
         style={{
           opacity: hover ? 1 : 0,
-          background: `radial-gradient(420px circle at ${pos.x}px ${pos.y}px, ${color}, transparent 45%)`,
+          background: `radial-gradient(380px circle at ${pos.x}px ${pos.y}px, ${color}, transparent 50%)`,
         }}
       />
       <div className="relative h-full">{children}</div>

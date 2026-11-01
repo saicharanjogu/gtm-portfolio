@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { ArrowUpRight, Check, Copy, Mail, MessageCircle } from 'lucide-react'
-import { Meteors } from '../components/ui/meteors'
 import { ShimmerButton } from '../components/ui/shimmer-button'
 import { Reveal } from '../components/ui/reveal'
 import { profile, whatsappLink } from '../lib/content'
@@ -12,6 +11,9 @@ function Linkedin({ className }: { className?: string }) {
     </svg>
   )
 }
+
+const pill =
+  'inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-6 py-3.5 text-[15px] font-medium text-white backdrop-blur transition-colors hover:bg-white/20'
 
 export function Contact() {
   const [copied, setCopied] = useState(false)
@@ -26,54 +28,54 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="relative py-24 sm:py-32">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6">
-        <Reveal>
-          <div className="relative overflow-hidden rounded-[2rem] border border-line bg-zinc-950 px-6 py-16 text-center text-white sm:px-12 sm:py-24">
-            <Meteors number={22} />
-            <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.35),transparent_60%)]" />
-            <div className="relative">
-              <span className="text-xs font-medium tracking-[0.18em] text-zinc-400 uppercase">Contact</span>
-              <h2 className="mx-auto mt-5 max-w-3xl text-3xl font-semibold tracking-tight text-balance sm:text-5xl">
-                If your funnel leaks between demo and paid POC,{' '}
-                <span className="font-serif font-normal italic text-gradient">you don't have to untangle it alone.</span>
-              </h2>
+    <section id="contact" className="relative px-4 py-16 sm:px-6 sm:py-24">
+      <Reveal className="mx-auto max-w-6xl">
+        <div className="relative overflow-hidden rounded-[2.25rem] bg-brand-700 px-6 py-20 text-center text-white sm:px-12 sm:py-28">
+          <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_80%_70%_at_50%_0%,var(--color-brand-500),transparent)]" />
+          <div aria-hidden className="bg-grid absolute inset-0 opacity-[0.12] [--color-line:white] [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
+          <div aria-hidden className="absolute -bottom-40 left-1/2 h-80 w-[50rem] -translate-x-1/2 rounded-full bg-brand-950/50 blur-3xl" />
 
-              <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <ShimmerButton href={whatsappLink} target="_blank" rel="noreferrer" background="linear-gradient(110deg,#059669,#10b981 50%,#0d9488)">
-                  <MessageCircle className="size-4" /> DM me on WhatsApp
-                </ShimmerButton>
-                <a
-                  href={`mailto:${profile.email}?subject=${encodeURIComponent('Our funnel is leaking')}`}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-semibold backdrop-blur transition-colors hover:bg-white/10"
-                >
-                  <Mail className="size-4" /> Email me
-                </a>
-                {profile.linkedin && (
-                  <a
-                    href={profile.linkedin}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-semibold backdrop-blur transition-colors hover:bg-white/10"
-                  >
-                    <Linkedin className="size-4" /> LinkedIn <ArrowUpRight className="size-3.5" />
-                  </a>
-                )}
-              </div>
+          <div className="relative">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[13px] text-brand-100">
+              <span className="size-1.5 rounded-full bg-white" /> Contact
+            </span>
+            <h2 className="mx-auto mt-6 max-w-4xl font-serif text-5xl leading-[1.02] text-balance sm:text-7xl">
+              If your funnel leaks between demo and paid POC, <span className="text-brand-200 italic">you don't have to untangle it alone.</span>
+            </h2>
 
-              <div className="mt-10 flex flex-col items-center justify-center gap-2 text-sm text-zinc-400 sm:flex-row sm:gap-6">
-                <button onClick={copy} className="inline-flex items-center gap-2 transition-colors hover:text-white">
-                  {copied ? <Check className="size-4 text-emerald-400" /> : <Copy className="size-4" />}
-                  {copied ? 'Copied!' : profile.email}
-                </button>
-                <a href={whatsappLink} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 transition-colors hover:text-white">
-                  <MessageCircle className="size-4" /> {profile.whatsappDisplay}
+            <div className="mt-11 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <ShimmerButton
+                href={whatsappLink}
+                target="_blank"
+                rel="noreferrer"
+                shimmerColor="#1f4fe0"
+                background="#ffffff"
+                className="text-brand-700 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.4)]"
+              >
+                <MessageCircle className="size-4" /> DM me on WhatsApp
+              </ShimmerButton>
+              <a href={`mailto:${profile.email}?subject=${encodeURIComponent('Our funnel is leaking')}`} className={pill}>
+                <Mail className="size-4" /> Email me
+              </a>
+              {profile.linkedin && (
+                <a href={profile.linkedin} target="_blank" rel="noreferrer" className={pill}>
+                  <Linkedin className="size-4" /> LinkedIn <ArrowUpRight className="size-3.5" />
                 </a>
-              </div>
+              )}
+            </div>
+
+            <div className="mt-10 flex flex-col items-center justify-center gap-2 text-[14px] text-brand-100 sm:flex-row sm:gap-6">
+              <button onClick={copy} className="inline-flex items-center gap-2 transition-colors hover:text-white">
+                {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
+                {copied ? 'Copied!' : profile.email}
+              </button>
+              <a href={whatsappLink} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 transition-colors hover:text-white">
+                <MessageCircle className="size-4" /> {profile.whatsappDisplay}
+              </a>
             </div>
           </div>
-        </Reveal>
-      </div>
+        </div>
+      </Reveal>
     </section>
   )
 }

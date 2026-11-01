@@ -1,6 +1,7 @@
-import { motion } from 'motion/react'
 import { Code2, Handshake, LineChart } from 'lucide-react'
 import { Reveal } from '../components/ui/reveal'
+import { Eyebrow } from '../components/ui/section-heading'
+import { SpotlightCard } from '../components/ui/spotlight-card'
 
 const speaks = [
   { icon: Code2, title: 'Enough product', body: 'to scope the data.' },
@@ -15,59 +16,30 @@ const causes = [
   'POCs that started without a defined next step',
 ]
 
-// Lamp header adapted from Aceternity "Lamp Effect".
-function Lamp() {
-  return (
-    <div aria-hidden className="relative mx-auto flex h-40 w-full max-w-3xl items-start justify-center overflow-hidden">
-      <motion.div
-        initial={{ width: '8rem', opacity: 0.4 }}
-        whileInView={{ width: '28rem', opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, ease: 'easeInOut' }}
-        className="absolute top-0 h-px bg-gradient-to-r from-transparent via-brand-2 to-transparent"
-      />
-      <motion.div
-        initial={{ width: '8rem', opacity: 0 }}
-        whileInView={{ width: '30rem', opacity: 0.6 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, ease: 'easeInOut' }}
-        className="absolute top-0 h-36 rounded-full bg-[radial-gradient(ellipse_at_top,rgba(34,211,238,0.35),transparent_70%)] blur-xl"
-      />
-      <motion.div
-        initial={{ width: '6rem' }}
-        whileInView={{ width: '16rem' }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, ease: 'easeInOut' }}
-        className="absolute top-0 h-24 rounded-full bg-brand/30 blur-2xl"
-      />
-    </div>
-  )
-}
-
 export function About() {
   return (
-    <section id="about" className="relative py-24 sm:py-32">
-      <Lamp />
-      <div className="mx-auto -mt-24 max-w-6xl px-4 sm:px-6">
-        <Reveal className="mx-auto max-w-3xl text-center">
-          <span className="text-xs font-medium tracking-[0.18em] text-muted uppercase">About</span>
-          <h2 className="mt-5 text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
-            I sit in the gap between <span className="font-serif font-normal italic text-gradient">pipeline</span> and{' '}
-            <span className="font-serif font-normal italic text-gradient">production</span>.
+    <section id="about" className="relative overflow-hidden py-24 sm:py-32">
+      <div aria-hidden className="absolute top-0 left-1/2 h-80 w-[60rem] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,var(--color-brand-100),transparent)] blur-2xl" />
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <Reveal className="mx-auto max-w-4xl text-center">
+          <Eyebrow>About</Eyebrow>
+          <h2 className="mt-6 font-serif text-5xl leading-[1.02] text-balance sm:text-7xl">
+            I sit in the gap between <span className="text-blue-gradient italic">pipeline</span> and{' '}
+            <span className="text-blue-gradient italic">production.</span>
           </h2>
         </Reveal>
 
         <div className="mt-16 grid gap-10 lg:grid-cols-2">
           <Reveal>
             <p className="text-lg leading-relaxed text-muted">
-              I've watched too many good POCs die in the handoff between <span className="text-fg">"the demo went well"</span> and{' '}
-              <span className="text-fg">"the contract is signed."</span> The cause is rarely the product. It's the GTM system around it:
+              I've watched too many good POCs die in the handoff between <span className="text-ink">"the demo went well"</span> and{' '}
+              <span className="text-ink">"the contract is signed."</span> The cause is rarely the product. It's the GTM system around it:
             </p>
-            <ul className="mt-6 space-y-2.5">
-              {causes.map((c) => (
-                <li key={c} className="flex gap-3 text-muted">
-                  <span className="mt-2.5 h-px w-4 shrink-0 bg-leak" />
-                  {c}
+            <ul className="mt-6 divide-y divide-line border-y border-line">
+              {causes.map((c, i) => (
+                <li key={c} className="flex items-baseline gap-4 py-3.5">
+                  <span className="font-serif text-lg text-brand-400">0{i + 1}</span>
+                  <span>{c}</span>
                 </li>
               ))}
             </ul>
@@ -79,23 +51,25 @@ export function About() {
           <div className="space-y-3">
             {speaks.map((s, i) => (
               <Reveal key={s.title} delay={i * 0.1}>
-                <div className="group flex items-center gap-4 rounded-2xl border border-line bg-surface p-5 transition-colors hover:border-brand/40">
-                  <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-brand/15 to-brand-2/15 text-brand transition-transform group-hover:scale-105">
-                    <s.icon className="size-5" />
-                  </span>
-                  <p className="text-lg">
-                    I speak <span className="font-semibold">{s.title.toLowerCase()}</span> <span className="text-muted">{s.body}</span>
-                  </p>
-                </div>
+                <SpotlightCard className="rounded-2xl p-5">
+                  <div className="flex items-center gap-4">
+                    <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-brand-50 text-brand-600">
+                      <s.icon className="size-5" strokeWidth={1.8} />
+                    </span>
+                    <p className="text-lg">
+                      I speak <span className="font-semibold">{s.title.toLowerCase()}</span> <span className="text-muted">{s.body}</span>
+                    </p>
+                  </div>
+                </SpotlightCard>
               </Reveal>
             ))}
           </div>
         </div>
 
-        <Reveal className="mx-auto mt-20 max-w-3xl text-center">
-          <p className="text-2xl leading-snug font-medium tracking-tight sm:text-3xl">
-            I'm not here to run more demos. I'm here to make the demos <span className="text-gradient">convert</span>
-            <span className="text-muted">, and to make the funnel feel a little more manageable for the people carrying it.</span>
+        <Reveal className="mx-auto mt-24 max-w-4xl text-center">
+          <p className="font-serif text-4xl leading-tight sm:text-5xl">
+            I'm not here to run more demos. I'm here to make the demos <span className="text-blue-gradient italic">convert</span>
+            <span className="text-muted/70">, and to make the funnel feel a little more manageable for the people carrying it.</span>
           </p>
         </Reveal>
       </div>
