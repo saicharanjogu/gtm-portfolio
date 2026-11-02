@@ -126,7 +126,8 @@ export function SignalEngine() {
       }
       later(() => {
         setTokens((t) => t.filter((x) => x.id !== id))
-        if (s.fit) setBooked((b) => [{ id, s }, ...b].slice(0, 3))
+        // Newest first, one card per account, so the row never shows the same account twice.
+        if (s.fit) setBooked((b) => [{ id, s }, ...b.filter((x) => x.s.account !== s.account)].slice(0, 3))
       }, path.duration * 1000)
     }, LAUNCH_MS)
   }, [later, setNode])

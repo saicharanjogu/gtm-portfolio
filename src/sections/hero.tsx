@@ -16,7 +16,7 @@ export function Hero() {
       <section id="top" className="pt-14 pb-12 sm:pt-20">
         <motion.span {...fadeUp(0)} className="inline-flex items-center gap-2 rounded-full border border-line bg-surface py-1 pr-3 pl-1.5 text-[13px] text-muted">
           <span className="flex -space-x-1.5">
-            {['n8n', 'Claude'].map((n) => (
+            {['Clay', 'n8n', 'Claude'].map((n) => (
               <span key={n} className="grid size-5 place-items-center rounded-full border border-line bg-white">
                 <Logo name={n} className="size-3" />
               </span>
