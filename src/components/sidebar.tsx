@@ -10,7 +10,13 @@ function ProfileCard() {
   return (
     <div className="liquid-glass rounded-2xl p-4 [--lg-tint:0.6]">
       <div className="flex items-center gap-3">
-        <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-brand-600 font-serif text-xl text-white">SJ</span>
+        <img
+          src="/profile.jpg"
+          alt="Sai Charan Jogu"
+          width={48}
+          height={48}
+          className="size-12 shrink-0 rounded-xl object-cover shadow-[0_0_0_2px_white,0_4px_12px_-4px_rgba(15,28,69,0.35)]"
+        />
         <div className="min-w-0">
           <p className="truncate text-[17px] leading-tight font-semibold">{profile.name}</p>
           <p className="mt-0.5 flex items-center gap-1.5 text-[13px] text-muted">
