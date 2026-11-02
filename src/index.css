@@ -175,3 +175,53 @@ body {
 @keyframes radar-sweep {
   to { transform: rotate(360deg); }
 }
+
+@keyframes marquee-x {
+  to { transform: translateX(calc(-100% - var(--gap))); }
+}
+@keyframes shimmer-sweep {
+  0%, 55% { transform: translateX(-120%) skewX(-20deg); }
+  100% { transform: translateX(220%) skewX(-20deg); }
+}
+
+@layer components {
+  /* Aceternity-style spotlight: a soft glow that follows the cursor (pointer position set as --mx/--my). */
+  .spotlight {
+    position: relative;
+    isolation: isolate;
+  }
+  .spotlight::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s;
+    background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), rgba(59, 108, 246, 0.1), transparent 70%);
+    pointer-events: none;
+  }
+  .spotlight:hover::before {
+    opacity: 1;
+  }
+
+  /* Magic UI-style shimmer: a light band sweeps across the primary CTA every few seconds. */
+  .btn-shimmer {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+  .btn-shimmer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 40%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+    animation: shimmer-sweep 3.6s ease-in-out infinite;
+    pointer-events: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-shimmer::after { display: none; }
+}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { MobileDock, Sidebar } from './components/sidebar'
 import { LiquidGlassFilter } from './components/ui/liquid-glass'
+import { ScrollProgress } from './components/ui/scroll-progress'
 import { NAV } from './lib/nav'
 import { Hero } from './sections/hero'
 import { CaseFiles, Note, Playbook, PS, Receipts, Stack } from './sections/body'
@@ -32,6 +33,7 @@ export default function App() {
         <span className="absolute -top-28 -left-28 size-[30rem] rounded-full bg-[radial-gradient(closest-side,var(--color-brand-200),transparent)] opacity-90" />
       </div>
       <LiquidGlassFilter />
+      <ScrollProgress />
       <Sidebar active={active} />
       <main className="relative isolate min-w-0 flex-1 overflow-hidden bg-white lg:rounded-3xl lg:border lg:border-line">
         {/* A single wash of light across the top of the whole panel, fading out: no clipped edges */}

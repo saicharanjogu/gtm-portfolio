@@ -78,7 +78,7 @@ export function Sidebar({ active }: { active: string }) {
             href={whatsappLink}
             target="_blank"
             rel="noreferrer"
-            className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-brand-600 py-3 text-[14px] font-medium text-white shadow-[0_8px_20px_-8px_rgba(31,79,224,0.7)] transition-colors hover:bg-brand-700"
+            className="btn-shimmer flex flex-1 items-center justify-center gap-2 rounded-xl bg-brand-600 py-3 text-[14px] font-medium text-white shadow-[0_8px_20px_-8px_rgba(31,79,224,0.7)] transition-colors hover:bg-brand-700"
           >
             <Logo name="WhatsAppWhite" className="size-[18px]" /> Ping me
           </a>

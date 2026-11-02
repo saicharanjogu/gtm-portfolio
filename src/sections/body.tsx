@@ -1,10 +1,14 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { motion, useScroll, useSpring } from 'motion/react'
 import { ArrowUpRight, Check, Copy } from 'lucide-react'
 import { Logo } from '../components/ui/logo'
 import { ProductMark } from '../components/ui/product-mark'
 import { H2 } from '../components/ui/h2'
 import { Reveal } from '../components/ui/reveal'
 import { NumberTicker } from '../components/ui/number-ticker'
+import { Marquee } from '../components/ui/marquee'
+import { TextReveal } from '../components/ui/text-reveal'
+import { BarList } from '../components/ui/bar-list'
 import { caseFiles, pocLocks, products, profile, proof, stack, whatsappLink } from '../lib/content'
 
 function Section({ id, children }: { id?: string; children: React.ReactNode }) {
@@ -15,21 +19,34 @@ function Section({ id, children }: { id?: string; children: React.ReactNode }) {
   )
 }
 
+const CAPABILITIES = ['Buying-signal detection', 'Enrichment waterfalls', 'ICP scoring', 'Lead routing', 'Signal-based sequences', 'Value engineering', 'Paid POC scoping', 'CRM hygiene']
+
 export function Stack() {
   return (
     <Section>
       <Reveal>
         <p className="text-[13px] font-medium text-muted">What I build with</p>
-        <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
-          {stack.map((s) => (
-            <div key={s.name} className="flex items-center gap-2.5 rounded-xl border border-line bg-white px-3 py-2.5 transition-colors hover:border-brand-200">
-              <span className="grid size-9 shrink-0 place-items-center rounded-lg border border-line bg-white"><Logo name={s.name} className="size-5 text-[17px]" /></span>
-              <span className="min-w-0">
-                <span className="block text-[13.5px] leading-tight font-medium">{s.name}</span>
-                <span className="mt-0.5 block text-[12px] leading-tight text-muted">{s.role}</span>
+        <div className="mt-4 -mx-5 space-y-3 sm:-mx-8">
+          <Marquee duration="45s">
+            {stack.map((s) => (
+              <div key={s.name} className="flex items-center gap-2.5 rounded-xl border border-line bg-white py-2 pr-4 pl-2 transition-colors hover:border-brand-200">
+                <span className="grid size-9 shrink-0 place-items-center rounded-lg border border-line bg-white">
+                  <Logo name={s.name} className="size-5 text-[17px]" />
+                </span>
+                <span className="whitespace-nowrap">
+                  <span className="block text-[13.5px] leading-tight font-medium">{s.name}</span>
+                  <span className="mt-0.5 block text-[12px] leading-tight text-muted">{s.role}</span>
+                </span>
+              </div>
+            ))}
+          </Marquee>
+          <Marquee reverse duration="55s">
+            {CAPABILITIES.map((c) => (
+              <span key={c} className="inline-flex items-center gap-2 rounded-full border border-brand-100 bg-brand-50 px-3.5 py-2 text-[13px] font-medium whitespace-nowrap text-brand-800">
+                <Check className="size-3.5" strokeWidth={3} /> {c}
               </span>
-            </div>
-          ))}
+            ))}
+          </Marquee>
         </div>
       </Reveal>
     </Section>
@@ -44,11 +61,11 @@ export function Note() {
           A <em>short note</em>, before the numbers.
         </H2>
         <div className="mt-6 space-y-4 text-[17px] leading-relaxed text-ink/80">
-          <p>
-            I&apos;ve watched too many good POCs die in the handoff between &ldquo;the demo went well&rdquo; and &ldquo;the contract is signed.&rdquo; The
-            cause is rarely the product. It&apos;s <span className="text-brand-600">the system around it</span>: leads never qualified against ICP, demos
-            that never tested a buying decision, value cases that couldn&apos;t survive the CFO&apos;s second question.
-          </p>
+          <TextReveal
+            className="text-[19px] leading-relaxed font-medium text-ink sm:text-[21px]"
+            highlight={['system', 'around', 'it']}
+            text="I’ve watched too many good POCs die in the handoff between “the demo went well” and “the contract is signed.” The cause is rarely the product. It’s the system around it: leads never qualified against ICP, demos that never tested a buying decision, value cases that couldn’t survive the CFO’s second question."
+          />
           <p>
             So I build the system around that gap: signal-based outbound that reaches buyers already in-market, demos that test a buying decision,
             and value cases that get the POC <span className="font-serif text-[1.08em] text-brand-600 italic">funded and signed</span>. Most recently I&apos;ve
@@ -102,6 +119,16 @@ export function Receipts() {
           </Reveal>
         ))}
       </div>
+      <Reveal className="mt-8">
+        <p className="mb-3 text-[13px] font-medium text-muted">The funnel behind the numbers</p>
+        <BarList
+          items={[
+            { name: 'Leads generated', value: proof.leads, note: 'qualified vs ICP', tone: 'bg-brand-100' },
+            { name: 'High-intent demos', value: proof.demos, note: `${proof.leadToDemo}% of leads`, tone: 'bg-brand-200' },
+            { name: 'Conversions', value: proof.conversions, note: `${proof.demoToConversion}% of demos`, tone: 'bg-brand-300' },
+          ]}
+        />
+      </Reveal>
     </Section>
   )
 }
@@ -118,7 +145,14 @@ export function CaseFiles() {
       <div className="mt-8 space-y-4">
         {caseFiles.map((c, i) => (
           <Reveal key={c.product.mark} delay={i * 0.06}>
-            <article className="card-shadow grid gap-5 rounded-2xl border border-line bg-white p-4 transition-colors hover:border-brand-200 sm:grid-cols-[1fr_190px] sm:p-6">
+            <article
+              onPointerMove={(e) => {
+                const r = e.currentTarget.getBoundingClientRect()
+                e.currentTarget.style.setProperty('--mx', `${e.clientX - r.left}px`)
+                e.currentTarget.style.setProperty('--my', `${e.clientY - r.top}px`)
+              }}
+              className="spotlight card-shadow grid gap-5 rounded-2xl border border-line bg-white p-4 transition-colors hover:border-brand-200 sm:grid-cols-[1fr_190px] sm:p-6"
+            >
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                   <ProductMark mark={c.product.mark} className="size-8 text-[15px]" />
@@ -156,6 +190,9 @@ export function CaseFiles() {
 }
 
 export function Playbook() {
+  const timeline = useRef<HTMLOListElement>(null)
+  const { scrollYProgress } = useScroll({ target: timeline, offset: ['start 0.8', 'end 0.55'] })
+  const fill = useSpring(scrollYProgress, { stiffness: 160, damping: 30 })
   return (
     <Section id="playbook">
       <Reveal>
@@ -164,21 +201,21 @@ export function Playbook() {
         </H2>
         <p className="mt-3 text-[15px] text-muted">Five things locked before kickoff, so the POC proves the purchase, not just the product.</p>
       </Reveal>
-      <ul className="mt-8 divide-y divide-line border-y border-line">
+      <ol ref={timeline} className="relative mt-8 space-y-6 pl-10">
+        <span aria-hidden className="absolute top-3 bottom-3 left-[11px] w-0.5 rounded-full bg-brand-100" />
+        <motion.span aria-hidden style={{ scaleY: fill }} className="absolute top-3 bottom-3 left-[11px] w-0.5 origin-top rounded-full bg-brand-600" />
         {pocLocks.map((l, i) => (
           <Reveal key={l.title} delay={i * 0.05}>
-            <li className="flex flex-col gap-1 py-3.5 sm:flex-row sm:items-center sm:gap-4">
-              <span className="flex items-center gap-2.5 sm:w-56 sm:shrink-0">
-                <span className="grid size-5 place-items-center rounded-full bg-brand-600 text-white">
-                  <Check className="size-3" strokeWidth={3} />
-                </span>
-                <span className="text-[15px] font-medium">{l.title}</span>
+            <li className="relative">
+              <span className="absolute top-0.5 -left-10 grid size-6 place-items-center rounded-full bg-brand-600 text-[11px] font-semibold text-white ring-4 ring-white">
+                {i + 1}
               </span>
-              <span className="pl-7.5 text-[14px] text-muted sm:pl-0">{l.body}</span>
+              <p className="text-[16px] font-semibold tracking-tight">{l.title}</p>
+              <p className="mt-0.5 text-[14.5px] text-muted">{l.body}</p>
             </li>
           </Reveal>
         ))}
-      </ul>
+      </ol>
     </Section>
   )
 }
@@ -199,7 +236,7 @@ export function PS() {
       <Reveal>
         <p className="font-serif text-3xl text-brand-600 italic">P.S.</p>
         <H2 className="mt-2">
-          If your outbound books more <em>maybe-laters</em> than demos, let&apos;s fix that.
+          If your outbound books more <em className="whitespace-nowrap">maybe-laters</em> than demos, let&apos;s fix that.
         </H2>
         <p className="mt-4 max-w-xl text-[17px] leading-relaxed text-muted">
           Twenty minutes, no deck. Tell me your ICP and demo target and I&apos;ll tell you which signals I&apos;d wire up first, even if we never work
@@ -210,7 +247,7 @@ export function PS() {
             href={whatsappLink}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-5 py-3 text-[15px] font-medium text-white shadow-[0_8px_20px_-8px_rgba(31,79,224,0.7)] transition-colors hover:bg-brand-700"
+            className="btn-shimmer inline-flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-5 py-3 text-[15px] font-medium text-white shadow-[0_8px_20px_-8px_rgba(31,79,224,0.7)] transition-colors hover:bg-brand-700"
           >
             <Logo name="WhatsAppWhite" className="size-[18px]" /> Ping me
           </a>
