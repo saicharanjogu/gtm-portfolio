@@ -1,77 +1,63 @@
 import { motion } from 'motion/react'
-import { ArrowRight, CircleDot, MessageCircle } from 'lucide-react'
-import { Sky } from '../components/ui/sky'
-import { BlurText } from '../components/ui/blur-text'
-import { GhostButton, ShimmerButton } from '../components/ui/shimmer-button'
-import { Marquee } from '../components/ui/marquee'
+import { ArrowRight, CornerLeftDown, MessageCircle, Workflow } from 'lucide-react'
 import { PirateFunnel } from '../components/pirate-funnel'
+import { whatsappLink } from '../lib/content'
 
 const fadeUp = (delay: number) => ({
-  initial: { opacity: 0, y: 16 },
+  initial: { opacity: 0, y: 14 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] as const },
+  transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] as const },
 })
-
-const strip = ['ICP-fit lead gen', 'Qualified before booked', 'Product-led demos', 'Buyer-agreed success criteria', 'Clean CRM notes', 'Fotos CRM', 'Prava CRM', 'Next step on every demo']
 
 export function Hero() {
   return (
-    <section id="top" className="relative isolate overflow-hidden pt-32 pb-20 sm:pt-36">
-      <Sky />
-      <div className="relative mx-auto max-w-6xl px-4 text-center sm:px-6">
-        <motion.div {...fadeUp(0)} className="flex justify-center">
-          <span className="card-shadow inline-flex items-center gap-2 rounded-full border border-line bg-white/80 py-1 pr-3 pl-1 text-[13px] text-muted backdrop-blur">
-            <span className="relative grid size-5 place-items-center">
-              <span className="absolute inset-0 animate-pulse-ring rounded-full bg-brand-400" />
-              <CircleDot className="relative size-4 text-brand-600" />
-            </span>
-            Sai Charan Jogu · Product &amp; GTM
+    <>
+      <section id="top" className="pt-14 pb-12 sm:pt-20">
+        <motion.span {...fadeUp(0)} className="inline-flex items-center gap-2 rounded-full border border-line bg-surface py-1 pr-3 pl-1.5 text-[13px] text-muted">
+          <span className="grid size-5 place-items-center rounded-full bg-brand-600 text-white">
+            <Workflow className="size-3" />
           </span>
-        </motion.div>
+          Signal-based outbound · Product &amp; GTM
+        </motion.span>
 
-        <h1 className="mx-auto mt-7 max-w-5xl font-serif text-[3rem] leading-[0.98] text-balance sm:text-7xl lg:text-[5.4rem]">
-          <BlurText text="I own your demos per month." />{' '}
-          <BlurText text="From first lead to demo day." delay={0.35} wordClassName={() => 'italic text-blue-gradient pr-1'} />
-        </h1>
+        <motion.h1 {...fadeUp(0.08)} className="relative mt-7 text-[2.5rem] leading-[1.05] font-semibold tracking-tight text-balance sm:text-[3.4rem]">
+          I build signal-based outbound systems that book{' '}
+          <span className="font-serif font-normal text-brand-600 italic">high-intent demos.</span>
+          <span aria-hidden className="absolute -top-9 right-0 hidden rotate-[-4deg] items-center gap-1 font-serif text-xl text-brand-600 italic sm:flex">
+            <CornerLeftDown className="size-4" /> then I build the value case
+          </span>
+        </motion.h1>
 
-        <motion.p {...fadeUp(0.8)} className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-pretty text-muted">
-          I'm the Product &amp; GTM operator who builds buttery-smooth B2B funnels, tools and handoffs included, so qualified leads slide from
-          first touch to a demo on your calendar.
+        <motion.p {...fadeUp(0.16)} className="mt-6 max-w-xl text-[17px] leading-relaxed text-muted">
+          Buying signals, enrichment and ICP scoring wired into your CRM, so outbound reaches buyers already in-market. Every demo it books comes
+          with a value case your champion can defend.
         </motion.p>
 
-        <motion.div {...fadeUp(0.95)} className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <ShimmerButton href="#engine">
-            See how I own the number <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-          </ShimmerButton>
-          <GhostButton href="#contact">
-            <MessageCircle className="size-4 text-brand-600" /> Tell me your monthly demo target
-          </GhostButton>
+        <motion.div {...fadeUp(0.24)} className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <a
+            href={whatsappLink}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-5 py-3 text-[15px] font-medium text-white shadow-[0_8px_20px_-8px_rgba(31,79,224,0.7)] transition-colors hover:bg-brand-700"
+          >
+            <MessageCircle className="size-4" /> Book a 20-min call
+          </a>
+          <a
+            href="#cases"
+            className="group card-shadow inline-flex items-center justify-center gap-2 rounded-xl border border-line bg-white px-5 py-3 text-[15px] font-medium transition-colors hover:border-brand-200"
+          >
+            Read the case files <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+          </a>
         </motion.div>
+      </section>
 
-        <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.97 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 1, delay: 1.05, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto mt-14 max-w-5xl"
-        >
-          <p className="mb-4 text-[15px] text-muted">
-            <span className="font-medium text-ink">A B2B SaaS pirate funnel (AARRR), before and after.</span> Same leads, same team. Flip it to
-            see what building the funnel does.
-          </p>
-          <PirateFunnel />
-        </motion.div>
-
-        <div className="mt-16">
-          <Marquee duration="45s">
-            {strip.map((t) => (
-              <span key={t} className="font-serif text-2xl whitespace-nowrap text-ink/60">
-                {t}
-                <span className="ml-10 text-brand-300">✦</span>
-              </span>
-            ))}
-          </Marquee>
-        </div>
-      </div>
-    </section>
+      <motion.section id="funnel" {...fadeUp(0.36)} className="pb-16">
+        <p className="mb-3 text-[13px] text-muted">
+          <span className="font-medium text-ink">A B2B SaaS pirate funnel (AARRR).</span> Flip it to see what a signal-based system does to
+          the same leads.
+        </p>
+        <PirateFunnel />
+      </motion.section>
+    </>
   )
 }

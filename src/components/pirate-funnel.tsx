@@ -19,17 +19,17 @@ const STAGES = [
 
 const TOOLS: Record<Mode, { icon: typeof Target; text: string }[]> = {
   leaky: [
-    { icon: CircleDashed, text: 'Ad hoc lists' },
+    { icon: CircleDashed, text: 'Spray-and-pray lists' },
     { icon: CircleDashed, text: 'Calendar ping-pong' },
     { icon: CircleDashed, text: 'Gut-feel next steps' },
     { icon: CircleDashed, text: 'Back-of-napkin ROI' },
     { icon: CircleDashed, text: 'Notes in DMs' },
   ],
   built: [
-    { icon: Target, text: 'ICP lists + sequences' },
-    { icon: CalendarCheck, text: 'Booking links + demo env' },
+    { icon: Target, text: 'Signals + ICP scoring' },
+    { icon: CalendarCheck, text: 'High-intent bookings' },
     { icon: ShieldCheck, text: 'Success criteria + data scope' },
-    { icon: Calculator, text: 'ROI model + POC scope' },
+    { icon: Calculator, text: 'Value engineering' },
     { icon: Handshake, text: 'CRM notes + champion intros' },
   ],
 }
@@ -269,8 +269,8 @@ export function PirateFunnel() {
         <div className="px-3 pt-4 pb-4 sm:px-6">
           {/* What I own, bracketed over the stages */}
           <div className="grid grid-cols-5 gap-0">
-            <div className="col-span-2 border-t-2 border-brand-600 pt-1.5 pr-2 text-[11px] font-medium text-brand-700 sm:text-[12px]">Demos per month: owned</div>
-            <div className="col-span-3 border-t-2 border-brand-200 pt-1.5 pl-2 text-[11px] text-muted sm:text-[12px]">…and I stay through paid POC</div>
+            <div className="col-span-2 border-t-2 border-brand-600 pt-1.5 pr-2 text-[11px] font-medium text-brand-700 sm:text-[12px]">High-intent demos: owned</div>
+            <div className="col-span-3 border-t-2 border-brand-200 pt-1.5 pl-2 text-[11px] text-muted sm:text-[12px]">…then value engineering to paid POC</div>
           </div>
 
           {/* Stage header */}

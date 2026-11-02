@@ -5,6 +5,7 @@
   --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
 
   --color-bg: #ffffff;
+  --color-page: #eef0f4;
   --color-surface: #f6f8fc;
   --color-line: #e4e9f2;
   --color-ink: #0a1a33;
@@ -63,7 +64,7 @@ html {
   scroll-padding-top: 6rem;
 }
 body {
-  @apply bg-bg font-sans text-ink antialiased;
+  @apply bg-page font-sans text-ink antialiased;
   overflow-x: hidden;
   font-feature-settings: "ss01";
 }
