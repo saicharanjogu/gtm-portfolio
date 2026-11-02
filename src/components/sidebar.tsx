@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from 'react'
+import { motion } from 'motion/react'
 import { BarChart3, Database } from 'lucide-react'
 import { Logo } from './ui/logo'
 import { profile, proof, whatsappLink } from '../lib/content'
@@ -6,7 +8,7 @@ import { cn } from '../lib/utils'
 
 function ProfileCard() {
   return (
-    <div className="card-shadow rounded-2xl border border-line bg-white p-4">
+    <div className="liquid-glass rounded-2xl p-4 [--lg-tint:0.6]">
       <div className="flex items-center gap-3">
         <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-brand-600 font-serif text-xl text-white">SJ</span>
         <div className="min-w-0">
@@ -17,8 +19,8 @@ function ProfileCard() {
         </div>
       </div>
       <p className="mt-3 text-[13px] leading-snug text-muted">{profile.focus}</p>
-      <p className="mt-3 pl-1 font-hand text-[1.1rem] leading-none text-ink">Sai Charan</p>
-      <ul className="mt-3 space-y-2 border-t border-line pt-3 text-[13px] text-ink/80">
+      <p className="mt-2 font-hand text-[1.75rem] leading-none font-semibold text-ink">Sai Charan</p>
+      <ul className="mt-3 space-y-2 border-t border-white/70 pt-3 text-[13px] text-ink/80">
         <li className="flex items-center gap-2">
           <BarChart3 className="size-3.5 text-muted" /> {proof.leads}+ leads → {proof.demos}+ demos
         </li>
@@ -33,7 +35,17 @@ function ProfileCard() {
   )
 }
 
+const PILL = { type: 'spring', stiffness: 420, damping: 36 } as const
+
 export function Sidebar({ active }: { active: string }) {
+  // Keep the active link in view inside the horizontally scrolling mobile nav.
+  const mobileNav = useRef<HTMLElement>(null)
+  useEffect(() => {
+    const nav = mobileNav.current
+    const el = nav?.querySelector<HTMLElement>(`[data-id="${active}"]`)
+    if (nav && el) nav.scrollTo({ left: el.offsetLeft - nav.clientWidth / 2 + el.clientWidth / 2, behavior: 'smooth' })
+  }, [active])
+
   return (
     <>
       {/* Desktop: sticky profile + nav, as in the Quota template */}
@@ -45,10 +57,12 @@ export function Sidebar({ active }: { active: string }) {
               key={n.id}
               href={`#${n.id}`}
               className={cn(
-                'flex items-center gap-2.5 rounded-xl px-3 py-2 text-[14px] transition-colors',
-                active === n.id ? 'card-shadow bg-white font-medium text-ink' : 'text-ink/70 hover:bg-white/60 hover:text-ink',
+                'relative isolate flex items-center gap-2.5 rounded-xl px-3 py-2 text-[14px] transition-colors',
+                active === n.id ? 'font-medium text-ink' : 'text-ink/70 hover:text-ink',
               )}
             >
+              {/* One glass pill that glides to the active section (Motion Primitives "Animated Background") */}
+              {active === n.id && <motion.span layoutId="nav-pill" transition={PILL} className="liquid-glass absolute inset-0 -z-10 rounded-xl [--lg-tint:0.85]" />}
               <n.icon className={cn('size-4', active === n.id ? 'text-brand-600' : 'text-muted')} /> {n.name}
             </a>
           ))}
@@ -60,7 +74,7 @@ export function Sidebar({ active }: { active: string }) {
             rel="noreferrer"
             className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-brand-600 py-3 text-[14px] font-medium text-white shadow-[0_8px_20px_-8px_rgba(31,79,224,0.7)] transition-colors hover:bg-brand-700"
           >
-            <span className="grid size-5 place-items-center rounded-full bg-white"><Logo name="WhatsApp" className="size-3.5" /></span> Book a 20-min call
+            <Logo name="WhatsAppWhite" className="size-[18px]" /> Book a 20-min call
           </a>
           <a href={`mailto:${profile.email}`} aria-label="Email" className="card-shadow grid w-12 place-items-center rounded-xl border border-line bg-white text-ink transition-colors hover:text-brand-600">
             <Logo name="Gmail" className="size-4" />
@@ -72,17 +86,57 @@ export function Sidebar({ active }: { active: string }) {
       <div className="px-3 pt-3 lg:hidden">
         <ProfileCard />
       </div>
-      <nav className="sticky top-0 z-40 -mb-px flex gap-1 overflow-x-auto bg-page/90 px-3 py-2 backdrop-blur lg:hidden">
-        {NAV.map((n) => (
-          <a
-            key={n.id}
-            href={`#${n.id}`}
-            className={cn('shrink-0 rounded-full px-3 py-1.5 text-[13px] transition-colors', active === n.id ? 'card-shadow bg-white font-medium text-ink' : 'text-ink/70')}
-          >
-            {n.name}
-          </a>
-        ))}
-      </nav>
+      <div className="sticky top-2 z-40 px-3 pt-2 lg:hidden">
+        <nav ref={mobileNav} className="liquid-glass flex gap-1 overflow-x-auto rounded-full p-1 [scrollbar-width:none]">
+          {NAV.map((n) => (
+            <a
+              key={n.id}
+              data-id={n.id}
+              href={`#${n.id}`}
+              className={cn('relative isolate shrink-0 rounded-full px-3 py-1.5 text-[13px] transition-colors', active === n.id ? 'font-medium text-white' : 'text-ink/75')}
+            >
+              {active === n.id && <motion.span layoutId="nav-pill-mobile" transition={PILL} className="absolute inset-0 -z-10 rounded-full bg-brand-600" />}
+              {n.name}
+            </a>
+          ))}
+        </nav>
+      </div>
     </>
+  )
+}
+
+// Mobile only: a floating glass dock with the main CTA, shown once the hero's own CTA has scrolled away.
+export function MobileDock() {
+  const [show, setShow] = useState(false)
+  useEffect(() => {
+    const onScroll = () => setShow(window.scrollY > 640)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+  return (
+    <motion.div
+      initial={false}
+      animate={show ? { y: 0, opacity: 1 } : { y: 90, opacity: 0 }}
+      transition={{ type: 'spring', stiffness: 320, damping: 30 }}
+      className="fixed inset-x-3 bottom-3 z-50 lg:hidden"
+      aria-hidden={!show}
+    >
+      <div className="liquid-glass mx-auto flex max-w-md items-center gap-2 rounded-2xl p-2">
+        <a
+          href={whatsappLink}
+          target="_blank"
+          rel="noreferrer"
+          tabIndex={show ? 0 : -1}
+          className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-brand-600 py-3 text-[14px] font-medium text-white shadow-[0_8px_20px_-8px_rgba(31,79,224,0.7)]"
+        >
+          <Logo name="WhatsAppWhite" className="size-[18px]" />
+          Book a 20-min call
+        </a>
+        <a href={`mailto:${profile.email}`} tabIndex={show ? 0 : -1} aria-label="Email" className="grid size-11 place-items-center rounded-xl bg-white/70">
+          <Logo name="Gmail" className="size-4" />
+        </a>
+      </div>
+    </motion.div>
   )
 }

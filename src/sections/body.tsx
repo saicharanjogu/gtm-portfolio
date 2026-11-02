@@ -54,7 +54,7 @@ export function Note() {
           </p>
         </div>
         <p className="mt-7 flex items-baseline gap-3">
-          <span className="font-hand text-xl text-ink/80">Sai Charan</span>
+          <span className="font-hand text-[2rem] leading-none font-semibold text-ink/85">Sai Charan</span>
           <span className="text-[12px] text-muted">
             {profile.name}, {profile.role}
           </span>
@@ -187,7 +187,7 @@ export function PS() {
             rel="noreferrer"
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-5 py-3 text-[15px] font-medium text-white shadow-[0_8px_20px_-8px_rgba(31,79,224,0.7)] transition-colors hover:bg-brand-700"
           >
-            <span className="grid size-5 place-items-center rounded-full bg-white"><Logo name="WhatsApp" className="size-3.5" /></span> Book a 20-min call
+            <Logo name="WhatsAppWhite" className="size-[18px]" /> Book a 20-min call
           </a>
           <a
             href={`mailto:${profile.email}`}

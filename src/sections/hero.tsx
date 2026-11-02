@@ -13,8 +13,8 @@ const fadeUp = (delay: number) => ({
 export function Hero() {
   return (
     <>
-      <section id="top" className="pt-14 pb-12 sm:pt-20">
-        <motion.span {...fadeUp(0)} className="inline-flex items-center gap-2 rounded-full border border-line bg-surface py-1 pr-3 pl-1.5 text-[13px] text-muted">
+      <section id="top" className="relative pt-14 pb-12 sm:pt-20">
+        <motion.span {...fadeUp(0)} className="liquid-glass inline-flex items-center gap-2 rounded-full py-1 pr-3 pl-1.5 text-[13px] text-ink/80">
           <span className="flex -space-x-1.5">
             {['Clay', 'n8n', 'Claude'].map((n) => (
               <span key={n} className="grid size-5 place-items-center rounded-full border border-line bg-white">
@@ -28,7 +28,7 @@ export function Hero() {
         <motion.h1 {...fadeUp(0.08)} className="relative mt-7 text-[2.5rem] leading-[1.05] font-semibold tracking-tight text-balance sm:text-[3.4rem]">
           I build signal-based outbound systems that book{' '}
           <span className="font-serif font-normal text-brand-600 italic">high-intent demos.</span>
-          <span aria-hidden className="absolute -top-9 right-0 hidden rotate-[-4deg] items-center gap-1.5 font-hand text-[16px] leading-none text-brand-600 sm:flex">
+          <span aria-hidden className="absolute -top-9 right-0 hidden rotate-[-4deg] items-center gap-1.5 font-hand text-[22px] leading-none font-semibold text-brand-600 sm:flex">
             <CornerLeftDown className="size-4" /> then I build the value case
           </span>
         </motion.h1>
@@ -45,11 +45,11 @@ export function Hero() {
             rel="noreferrer"
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-5 py-3 text-[15px] font-medium text-white shadow-[0_8px_20px_-8px_rgba(31,79,224,0.7)] transition-colors hover:bg-brand-700"
           >
-            <span className="grid size-5 place-items-center rounded-full bg-white"><Logo name="WhatsApp" className="size-3.5" /></span> Book a 20-min call
+            <Logo name="WhatsAppWhite" className="size-[18px]" /> Book a 20-min call
           </a>
           <a
             href="#cases"
-            className="group card-shadow inline-flex items-center justify-center gap-2 rounded-xl border border-line bg-white px-5 py-3 text-[15px] font-medium transition-colors hover:border-brand-200"
+            className="group liquid-glass inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-[15px] font-medium transition-transform hover:-translate-y-0.5"
           >
             Read the case files <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
           </a>
