@@ -1,14 +1,15 @@
 import { useState } from 'react'
-import { Check, Copy } from 'lucide-react'
+import { ArrowUpRight, Check, Copy } from 'lucide-react'
 import { Logo } from '../components/ui/logo'
+import { ProductMark } from '../components/ui/product-mark'
 import { H2 } from '../components/ui/h2'
 import { Reveal } from '../components/ui/reveal'
 import { NumberTicker } from '../components/ui/number-ticker'
-import { caseFiles, pocLocks, profile, proof, stack, whatsappLink } from '../lib/content'
+import { caseFiles, pocLocks, products, profile, proof, stack, whatsappLink } from '../lib/content'
 
 function Section({ id, children }: { id?: string; children: React.ReactNode }) {
   return (
-    <section id={id} className="border-t border-line py-16">
+    <section id={id} className="border-t border-line py-12 sm:py-16">
       {children}
     </section>
   )
@@ -50,7 +51,16 @@ export function Note() {
           </p>
           <p>
             So I build the system around that gap: signal-based outbound that reaches buyers already in-market, demos that test a buying decision,
-            and value cases that get the POC <span className="font-serif text-[1.08em] text-brand-600 italic">funded and signed</span>.
+            and value cases that get the POC <span className="font-serif text-[1.08em] text-brand-600 italic">funded and signed</span>. Most recently I&apos;ve
+            done it for wedding-tech products:{' '}
+            {products.map((p, i) => (
+              <span key={p.mark}>
+                <a href={p.url} target="_blank" rel="noreferrer" className="font-medium text-ink underline decoration-brand-200 underline-offset-4 transition-colors hover:decoration-brand-600">
+                  {p.name}
+                </a>
+                {i < products.length - 2 ? ', ' : i === products.length - 2 ? ' and ' : '.'}
+              </span>
+            ))}
           </p>
         </div>
         <p className="mt-7 flex items-baseline gap-3">
@@ -68,7 +78,7 @@ const receipts = [
   { value: proof.leads, suffix: '+', label: 'Leads generated', note: 'Qualified against ICP, not a volume list' },
   { value: proof.demos, suffix: '+', label: 'High-intent demos', note: `${proof.leadToDemo}% of leads became a held demo` },
   { value: proof.conversions, suffix: '+', label: 'Reported conversions', note: `${proof.demoToConversion}% of demos moved to a next step` },
-  { value: proof.leadToConversion, prefix: '~', suffix: '%', label: 'Lead-to-conversion', note: 'Tracked across Fotos and Prava CRM' },
+  { value: proof.leadToConversion, prefix: '~', suffix: '%', label: 'Lead-to-conversion', note: 'Across PRAVA CRM and Fotos' },
 ]
 
 export function Receipts() {
@@ -81,8 +91,8 @@ export function Receipts() {
       </Reveal>
       <div className="mt-8 grid grid-cols-2 border-t border-l border-line">
         {receipts.map((r, i) => (
-          <Reveal key={r.label} delay={i * 0.06} className="border-r border-b border-line p-5 sm:p-6">
-            <p className="text-4xl font-semibold tracking-tight sm:text-5xl">
+          <Reveal key={r.label} delay={i * 0.06} className="border-r border-b border-line p-4 sm:p-6">
+            <p className="text-[2rem] leading-none font-semibold tracking-tight sm:text-5xl">
               {r.prefix}
               <NumberTicker value={r.value} />
               <span className="text-brand-600">{r.suffix}</span>
@@ -101,17 +111,29 @@ export function CaseFiles() {
     <Section id="cases">
       <Reveal>
         <H2>
-          Three engines, and the numbers they <em>moved</em>.
+          Three products, and the numbers they <em>moved</em>.
         </H2>
-        <p className="mt-3 text-[15px] text-muted">Built and run inside the client&apos;s own CRM. Every figure comes from the same 198 / 65 / 40 record.</p>
+        <p className="mt-3 text-[15px] text-muted">Wedding-tech SaaS I took to market. The 198 / 65 / 40 record comes from PRAVA CRM and Fotos; BookMore is in beta.</p>
       </Reveal>
       <div className="mt-8 space-y-4">
         {caseFiles.map((c, i) => (
-          <Reveal key={c.title} delay={i * 0.06}>
-            <article className="card-shadow grid gap-5 rounded-2xl border border-line bg-white p-5 transition-colors hover:border-brand-200 sm:grid-cols-[1fr_190px] sm:p-6">
-              <div>
-                <p className="text-[12px] font-medium text-brand-600">Case file 0{i + 1}</p>
-                <h3 className="mt-1 text-xl font-semibold tracking-tight">{c.title}</h3>
+          <Reveal key={c.product.mark} delay={i * 0.06}>
+            <article className="card-shadow grid gap-5 rounded-2xl border border-line bg-white p-4 transition-colors hover:border-brand-200 sm:grid-cols-[1fr_190px] sm:p-6">
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                  <ProductMark mark={c.product.mark} className="size-8 text-[15px]" />
+                  <span className="text-[15px] font-semibold">{c.product.name}</span>
+                  <a
+                    href={c.product.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="-my-2 inline-flex items-center gap-0.5 py-2 text-[12px] text-muted transition-colors hover:text-brand-600"
+                  >
+                    {c.product.host} <ArrowUpRight className="size-3" />
+                  </a>
+                  <span className="ml-auto hidden text-[12px] font-medium text-brand-600 sm:inline">Case file 0{i + 1}</span>
+                </div>
+                <h3 className="mt-3 text-lg leading-snug font-semibold tracking-tight sm:text-xl">{c.title}</h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-muted">{c.body}</p>
               </div>
               <div className="grid grid-cols-2 gap-4 rounded-xl bg-surface p-4 sm:grid-cols-1 sm:gap-0 sm:divide-y sm:divide-line">
@@ -195,7 +217,7 @@ export function PS() {
           >
             <Logo name="Gmail" className="size-4" /> Email me
           </a>
-          <button onClick={copy} className="inline-flex items-center justify-center gap-2 px-2 text-[14px] text-muted transition-colors hover:text-ink">
+          <button onClick={copy} className="inline-flex items-center justify-center gap-2 px-2 py-2.5 text-[14px] text-muted transition-colors hover:text-ink">
             {copied ? <Check className="size-4 text-brand-600" /> : <Copy className="size-4" />}
             {copied ? 'Copied!' : profile.email}
           </button>

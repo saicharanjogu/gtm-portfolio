@@ -51,7 +51,7 @@ export default function App() {
             <span>
               © {new Date().getFullYear()} {profile.name}
             </span>
-            <a href="#top" className="transition-colors hover:text-ink">
+            <a href="#top" className="-my-2.5 py-2.5 transition-colors hover:text-ink">
               Back to top ↑
             </a>
           </footer>

@@ -87,13 +87,13 @@ export function Sidebar({ active }: { active: string }) {
         <ProfileCard />
       </div>
       <div className="sticky top-2 z-40 px-3 pt-2 lg:hidden">
-        <nav ref={mobileNav} className="liquid-glass flex gap-1 overflow-x-auto rounded-full p-1 [scrollbar-width:none]">
+        <nav ref={mobileNav} className="liquid-glass flex gap-1 overflow-x-auto rounded-full p-1 [scrollbar-width:none] [mask-image:linear-gradient(to_right,black_88%,transparent)]">
           {NAV.map((n) => (
             <a
               key={n.id}
               data-id={n.id}
               href={`#${n.id}`}
-              className={cn('relative isolate shrink-0 rounded-full px-3 py-1.5 text-[13px] transition-colors', active === n.id ? 'font-medium text-white' : 'text-ink/75')}
+              className={cn('relative isolate shrink-0 rounded-full px-3.5 py-2 text-[13px] transition-colors', active === n.id ? 'font-medium text-white' : 'text-ink/75')}
             >
               {active === n.id && <motion.span layoutId="nav-pill-mobile" transition={PILL} className="absolute inset-0 -z-10 rounded-full bg-brand-600" />}
               {n.name}

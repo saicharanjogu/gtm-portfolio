@@ -35,29 +35,41 @@ export const stack = [
   { name: 'Snowflake', role: 'Warehouse' },
 ]
 
+// Wedding-tech products I took to market. The 198 / 65 / 40 record comes from PRAVA CRM and Fotos;
+// BookMore is in beta, so its card states facts about the product, not results.
+export type ProductMarkKind = 'prava' | 'fotos' | 'bookmore'
+export const products: { mark: ProductMarkKind; name: string; url: string; host: string; what: string }[] = [
+  { mark: 'prava', name: 'PRAVA CRM', url: 'https://pravacrm.com/', host: 'pravacrm.com', what: 'CRM for wedding photographers' },
+  { mark: 'fotos', name: 'Fotos', url: 'https://fotosm.neorun.in/', host: 'fotosm.neorun.in', what: 'Wireless tethering for studios' },
+  { mark: 'bookmore', name: 'BookMore', url: 'https://bookmore.neorun.in/', host: 'bookmore.neorun.in', what: 'AI DM nurturing for studios' },
+]
+
 export const caseFiles = [
   {
-    title: 'Signal-based outbound engine',
-    body: 'Outbound aimed at accounts showing buying intent and qualified against ICP before a rep spent time on them, so booked meetings came from buyers already in-market rather than a volume list.',
+    product: products[0],
+    title: 'Closed-loop outbound for a wedding-photographer CRM',
+    body: 'PRAVA sends booked weddings back to Meta, so ads learn from bookings instead of enquiries. I took that story to studios with signal-based outbound and demos built around the loop, qualified against ICP before anyone spent a call on them.',
     stats: [
-      { value: '198 → 65', label: 'leads to held demos' },
+      { value: '198 → 65', label: 'leads to demos, Prava + Fotos' },
       { value: `${proof.leadToDemo}%`, label: 'lead-to-demo rate' },
     ],
   },
   {
-    title: 'High-intent demos with value engineering',
-    body: 'Demos that test buyer-agreed success criteria instead of touring features, backed by an ROI case in the language the champion has to defend: productivity, revenue, quality and risk.',
+    product: products[1],
+    title: 'Product-led demos for wireless studio tethering',
+    body: 'Fotos replaces the tether cable with instant wireless RAW transfer. Demos proved exactly that against each studio’s own success criteria, with the value case in their terms (no downtime, no port repairs), and ended on a defined next step.',
     stats: [
-      { value: `${proof.conversions}+`, label: 'reported conversions' },
+      { value: `${proof.conversions}+`, label: 'conversions, Prava + Fotos' },
       { value: `${proof.demoToConversion}%`, label: 'demo-to-conversion rate' },
     ],
   },
   {
-    title: 'Signal-to-revenue tracking in two CRMs',
-    body: 'Ran the system end to end across Fotos and Prava CRM, from first signal to commercial next step, and kept the records clean enough that every number on this page can be trusted.',
+    product: products[2],
+    title: 'Speed-to-lead for Instagram and WhatsApp DMs',
+    body: 'BookMore’s AI answers studio DMs, qualifies intent and moves couples to a booking. It is the same signal-first idea applied to inbound: respond in the first minutes, qualify, then book.',
     stats: [
-      { value: '2', label: 'CRMs run end to end' },
-      { value: `~${proof.leadToConversion}%`, label: 'lead-to-conversion' },
+      { value: 'IG + WA', label: 'Instagram and WhatsApp DMs' },
+      { value: 'Beta', label: 'live, invite-only' },
     ],
   },
 ]

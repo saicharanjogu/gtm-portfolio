@@ -145,7 +145,7 @@ export function SignalEngine() {
 
   return (
     <div className="card-shadow overflow-hidden rounded-[1.5rem] border border-line bg-white text-left">
-      <div className="flex items-center justify-between border-b border-line px-5 py-3">
+      <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-3 sm:px-5">
         <span className="flex items-center gap-2 text-[13px] font-medium">
           <span className="relative grid size-2.5 place-items-center">
             <span className="absolute inset-0 animate-pulse-ring rounded-full bg-brand-400" />
@@ -153,12 +153,14 @@ export function SignalEngine() {
           </span>
           Signal engine
         </span>
-        <span className="text-[12px] text-muted">Live demo · illustrative accounts</span>
+        <span className="text-[12px] text-muted">
+          <span className="hidden sm:inline">Live demo · </span>illustrative accounts
+        </span>
       </div>
 
-      <div className="grid gap-6 p-5 sm:grid-cols-[180px_1fr] sm:items-center sm:gap-5">
+      <div className="grid gap-5 p-4 sm:grid-cols-[180px_1fr] sm:items-center sm:gap-5 sm:p-5">
         {/* Radar: buying signals appear as blips */}
-        <div className="mx-auto w-full max-w-[200px]">
+        <div className="mx-auto w-full max-w-[170px] sm:max-w-[200px]">
           <div className="relative aspect-square overflow-hidden rounded-full border border-brand-100 bg-brand-50/50">
             {[0.28, 0.56, 0.84].map((s) => (
               <span key={s} aria-hidden className="absolute top-1/2 left-1/2 -translate-1/2 rounded-full border border-brand-100" style={{ width: `${s * 100}%`, height: `${s * 100}%` }} />
@@ -213,7 +215,7 @@ export function SignalEngine() {
                   {/* CSS transitions for the highlight: no per-frame React work */}
                   <span
                     className={cn(
-                      'grid size-11 place-items-center rounded-xl border font-serif text-[15px] transition-[transform,background-color,border-color,box-shadow,color] duration-300 ease-[cubic-bezier(0.45,0,0.25,1)] sm:size-12',
+                      'grid size-10 place-items-center rounded-xl border font-serif text-[15px] transition-[transform,background-color,border-color,box-shadow,color] duration-300 ease-[cubic-bezier(0.45,0,0.25,1)] sm:size-12',
                       hot[i]
                         ? 'scale-110 border-brand-600 bg-brand-600 text-white shadow-[0_8px_20px_-6px_rgba(31,79,224,0.6)]'
                         : 'scale-100 border-line bg-white text-brand-700',
@@ -228,8 +230,8 @@ export function SignalEngine() {
                     )}
                   </span>
                   <span className="absolute top-full mt-1.5 text-center whitespace-nowrap">
-                    <span className="block text-[11px] font-medium sm:text-[12px]">{st.tool}</span>
-                    <span className="block text-[10.5px] text-muted sm:text-[11px]">{st.verb}</span>
+                    <span className="block text-[10px] font-medium min-[400px]:text-[11px] sm:text-[12px]">{st.tool}</span>
+                    <span className="hidden text-[11px] text-muted min-[400px]:block">{st.verb}</span>
                   </span>
                 </div>
               )
