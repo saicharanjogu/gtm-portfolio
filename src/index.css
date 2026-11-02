@@ -127,3 +127,7 @@ body {
   from { transform: rotate(calc(var(--angle) * 1deg)) translateX(var(--r)) rotate(calc(var(--angle) * -1deg)); }
   to { transform: rotate(calc(var(--angle) * 1deg + 360deg)) translateX(var(--r)) rotate(calc(var(--angle) * -1deg - 360deg)); }
 }
+
+@keyframes radar-sweep {
+  to { transform: rotate(360deg); }
+}

@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Check, Copy, Mail, MessageCircle } from 'lucide-react'
+import { Check, Copy } from 'lucide-react'
+import { Logo } from '../components/ui/logo'
 import { H2 } from '../components/ui/h2'
 import { Reveal } from '../components/ui/reveal'
 import { NumberTicker } from '../components/ui/number-ticker'
@@ -21,7 +22,7 @@ export function Stack() {
         <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
           {stack.map((s) => (
             <div key={s.name} className="flex items-center gap-2.5 rounded-xl border border-line bg-white px-3 py-2.5 transition-colors hover:border-brand-200">
-              <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-brand-50 font-serif text-[15px] text-brand-700">{s.name[0]}</span>
+              <span className="grid size-9 shrink-0 place-items-center rounded-lg border border-line bg-white"><Logo name={s.name} className="size-5 text-[17px]" /></span>
               <span className="min-w-0">
                 <span className="block text-[13.5px] leading-tight font-medium">{s.name}</span>
                 <span className="mt-0.5 block text-[12px] leading-tight text-muted">{s.role}</span>
@@ -186,13 +187,13 @@ export function PS() {
             rel="noreferrer"
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-5 py-3 text-[15px] font-medium text-white shadow-[0_8px_20px_-8px_rgba(31,79,224,0.7)] transition-colors hover:bg-brand-700"
           >
-            <MessageCircle className="size-4" /> Book a 20-min call
+            <span className="grid size-5 place-items-center rounded-full bg-white"><Logo name="WhatsApp" className="size-3.5" /></span> Book a 20-min call
           </a>
           <a
             href={`mailto:${profile.email}`}
             className="card-shadow inline-flex items-center justify-center gap-2 rounded-xl border border-line bg-white px-5 py-3 text-[15px] font-medium transition-colors hover:border-brand-200"
           >
-            <Mail className="size-4" /> Email me
+            <Logo name="Gmail" className="size-4" /> Email me
           </a>
           <button onClick={copy} className="inline-flex items-center justify-center gap-2 px-2 text-[14px] text-muted transition-colors hover:text-ink">
             {copied ? <Check className="size-4 text-brand-600" /> : <Copy className="size-4" />}

@@ -1,4 +1,5 @@
-import { BarChart3, Database, Mail, MessageCircle } from 'lucide-react'
+import { BarChart3, Database } from 'lucide-react'
+import { Logo } from './ui/logo'
 import { profile, proof, whatsappLink } from '../lib/content'
 import { NAV } from '../lib/nav'
 import { cn } from '../lib/utils'
@@ -25,7 +26,7 @@ function ProfileCard() {
           <Database className="size-3.5 text-muted" /> Fotos + Prava CRM
         </li>
         <li className="flex items-center gap-2">
-          <MessageCircle className="size-3.5 text-brand-600" /> Replies fastest on WhatsApp
+          <Logo name="WhatsApp" className="size-3.5" /> Replies fastest on WhatsApp
         </li>
       </ul>
     </div>
@@ -59,10 +60,10 @@ export function Sidebar({ active }: { active: string }) {
             rel="noreferrer"
             className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-brand-600 py-3 text-[14px] font-medium text-white shadow-[0_8px_20px_-8px_rgba(31,79,224,0.7)] transition-colors hover:bg-brand-700"
           >
-            <MessageCircle className="size-4" /> Book a 20-min call
+            <span className="grid size-5 place-items-center rounded-full bg-white"><Logo name="WhatsApp" className="size-3.5" /></span> Book a 20-min call
           </a>
           <a href={`mailto:${profile.email}`} aria-label="Email" className="card-shadow grid w-12 place-items-center rounded-xl border border-line bg-white text-ink transition-colors hover:text-brand-600">
-            <Mail className="size-4" />
+            <Logo name="Gmail" className="size-4" />
           </a>
         </div>
       </aside>

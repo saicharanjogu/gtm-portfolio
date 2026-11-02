@@ -1,6 +1,7 @@
 import { motion } from 'motion/react'
-import { ArrowRight, CornerLeftDown, MessageCircle, Workflow } from 'lucide-react'
-import { PirateFunnel } from '../components/pirate-funnel'
+import { ArrowRight, CornerLeftDown } from 'lucide-react'
+import { Logo } from '../components/ui/logo'
+import { SignalEngine } from '../components/signal-engine'
 import { whatsappLink } from '../lib/content'
 
 const fadeUp = (delay: number) => ({
@@ -14,8 +15,12 @@ export function Hero() {
     <>
       <section id="top" className="pt-14 pb-12 sm:pt-20">
         <motion.span {...fadeUp(0)} className="inline-flex items-center gap-2 rounded-full border border-line bg-surface py-1 pr-3 pl-1.5 text-[13px] text-muted">
-          <span className="grid size-5 place-items-center rounded-full bg-brand-600 text-white">
-            <Workflow className="size-3" />
+          <span className="flex -space-x-1.5">
+            {['n8n', 'Claude'].map((n) => (
+              <span key={n} className="grid size-5 place-items-center rounded-full border border-line bg-white">
+                <Logo name={n} className="size-3" />
+              </span>
+            ))}
           </span>
           Signal-based outbound with Clay, n8n and Claude
         </motion.span>
@@ -40,7 +45,7 @@ export function Hero() {
             rel="noreferrer"
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-5 py-3 text-[15px] font-medium text-white shadow-[0_8px_20px_-8px_rgba(31,79,224,0.7)] transition-colors hover:bg-brand-700"
           >
-            <MessageCircle className="size-4" /> Book a 20-min call
+            <span className="grid size-5 place-items-center rounded-full bg-white"><Logo name="WhatsApp" className="size-3.5" /></span> Book a 20-min call
           </a>
           <a
             href="#cases"
@@ -51,12 +56,12 @@ export function Hero() {
         </motion.div>
       </section>
 
-      <motion.section id="funnel" {...fadeUp(0.36)} className="pb-16">
+      <motion.section id="engine" {...fadeUp(0.36)} className="pb-16">
         <p className="mb-3 text-[13px] text-muted">
-          <span className="font-medium text-ink">A B2B SaaS pirate funnel (AARRR).</span> Flip it to see what a signal-based system does to
-          the same leads.
+          <span className="font-medium text-ink">How a buying signal becomes a booked demo.</span> Detected, enriched, researched, scored and
+          routed, with non-fits dropped before they reach a rep.
         </p>
-        <PirateFunnel />
+        <SignalEngine />
       </motion.section>
     </>
   )
