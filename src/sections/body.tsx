@@ -52,7 +52,7 @@ export function Note() {
           <p>
             So I build the system around that gap: signal-based outbound that reaches buyers already in-market, demos that test a buying decision,
             and value cases that get the POC <span className="font-serif text-[1.08em] text-brand-600 italic">funded and signed</span>. Most recently I&apos;ve
-            done it for wedding-tech products:{' '}
+            done it for SaaS products:{' '}
             {products.map((p, i) => (
               <span key={p.mark}>
                 <a href={p.url} target="_blank" rel="noreferrer" className="font-medium text-ink underline decoration-brand-200 underline-offset-4 transition-colors hover:decoration-brand-600">
@@ -113,7 +113,7 @@ export function CaseFiles() {
         <H2>
           Three products, and the numbers they <em>moved</em>.
         </H2>
-        <p className="mt-3 text-[15px] text-muted">Wedding-tech SaaS I took to market. The 198 / 65 / 40 record comes from PRAVA CRM and Fotos; BookMore is in beta.</p>
+        <p className="mt-3 text-[15px] text-muted">Products I took to market, and what each one proves for startups and enterprise teams. The 198 / 65 / 40 record comes from PRAVA CRM and Fotos; BookMore is in beta.</p>
       </Reveal>
       <div className="mt-8 space-y-4">
         {caseFiles.map((c, i) => (
@@ -135,6 +135,9 @@ export function CaseFiles() {
                 </div>
                 <h3 className="mt-3 text-lg leading-snug font-semibold tracking-tight sm:text-xl">{c.title}</h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-muted">{c.body}</p>
+                <p className="mt-3 rounded-lg bg-brand-50 px-3 py-2 text-[13.5px] leading-snug text-brand-900">
+                  <span className="font-semibold">For startups and enterprises:</span> {c.applies}
+                </p>
               </div>
               <div className="grid grid-cols-2 gap-4 rounded-xl bg-surface p-4 sm:grid-cols-1 sm:gap-0 sm:divide-y sm:divide-line">
                 {c.stats.map((s) => (

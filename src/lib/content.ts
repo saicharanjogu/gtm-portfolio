@@ -35,20 +35,22 @@ export const stack = [
   { name: 'Snowflake', role: 'Warehouse' },
 ]
 
-// Wedding-tech products I took to market. The 198 / 65 / 40 record comes from PRAVA CRM and Fotos;
-// BookMore is in beta, so its card states facts about the product, not results.
+// Products I took to market, framed by the B2B motion each one proves for startups and enterprise teams.
+// Product descriptions stay true to what each product does. The 198 / 65 / 40 record comes from PRAVA CRM
+// and Fotos; BookMore is in beta, so its card states facts about the product, not results.
 export type ProductMarkKind = 'prava' | 'fotos' | 'bookmore'
 export const products: { mark: ProductMarkKind; name: string; url: string; host: string; what: string }[] = [
-  { mark: 'prava', name: 'PRAVA CRM', url: 'https://pravacrm.com/', host: 'pravacrm.com', what: 'CRM for wedding photographers' },
-  { mark: 'fotos', name: 'Fotos', url: 'https://fotosm.neorun.in/', host: 'fotosm.neorun.in', what: 'Wireless tethering for studios' },
-  { mark: 'bookmore', name: 'BookMore', url: 'https://bookmore.neorun.in/', host: 'bookmore.neorun.in', what: 'AI DM nurturing for studios' },
+  { mark: 'prava', name: 'PRAVA CRM', url: 'https://pravacrm.com/', host: 'pravacrm.com', what: 'CRM that feeds real conversions back to Meta' },
+  { mark: 'fotos', name: 'Fotos', url: 'https://fotosm.neorun.in/', host: 'fotosm.neorun.in', what: 'Wireless tethering software' },
+  { mark: 'bookmore', name: 'BookMore', url: 'https://bookmore.neorun.in/', host: 'bookmore.neorun.in', what: 'AI lead nurturing on Instagram and WhatsApp' },
 ]
 
 export const caseFiles = [
   {
     product: products[0],
-    title: 'Closed-loop outbound for a wedding-photographer CRM',
-    body: 'PRAVA sends booked weddings back to Meta, so ads learn from bookings instead of enquiries. I took that story to studios with signal-based outbound and demos built around the loop, qualified against ICP before anyone spent a call on them.',
+    title: 'Closed-loop conversion signals',
+    body: 'PRAVA CRM sends real conversions back to Meta, so ads optimise for customers instead of raw enquiries. I took it to market with signal-based outbound and demos built around that loop, with every lead qualified against ICP before a call was spent on it.',
+    applies: 'wire CRM outcomes back into your ads and outbound, so spend chases revenue, not form fills.',
     stats: [
       { value: '198 → 65', label: 'leads to demos, Prava + Fotos' },
       { value: `${proof.leadToDemo}%`, label: 'lead-to-demo rate' },
@@ -56,8 +58,9 @@ export const caseFiles = [
   },
   {
     product: products[1],
-    title: 'Product-led demos for wireless studio tethering',
-    body: 'Fotos replaces the tether cable with instant wireless RAW transfer. Demos proved exactly that against each studio’s own success criteria, with the value case in their terms (no downtime, no port repairs), and ended on a defined next step.',
+    title: 'Product-led demos that sell the outcome',
+    body: 'Fotos replaces a fragile hardware cable with instant wireless file transfer. Demos proved exactly that against each buyer’s own success criteria, with the value case in their terms (no downtime, no repair costs), and ended on a defined next step.',
+    applies: 'demos that test the buyer’s success criteria and carry an ROI case the champion can defend internally.',
     stats: [
       { value: `${proof.conversions}+`, label: 'conversions, Prava + Fotos' },
       { value: `${proof.demoToConversion}%`, label: 'demo-to-conversion rate' },
@@ -65,8 +68,9 @@ export const caseFiles = [
   },
   {
     product: products[2],
-    title: 'Speed-to-lead for Instagram and WhatsApp DMs',
-    body: 'BookMore’s AI answers studio DMs, qualifies intent and moves couples to a booking. It is the same signal-first idea applied to inbound: respond in the first minutes, qualify, then book.',
+    title: 'AI speed-to-lead on Instagram and WhatsApp',
+    body: 'BookMore’s AI answers inbound DMs within minutes, qualifies intent and moves prospects to a booking. It is the same signal-first idea, applied to inbound.',
+    applies: 'route and qualify inbound in minutes, not hours, before the lead goes cold.',
     stats: [
       { value: 'IG + WA', label: 'Instagram and WhatsApp DMs' },
       { value: 'Beta', label: 'live, invite-only' },
