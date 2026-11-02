@@ -4,7 +4,7 @@ import { Sky } from '../components/ui/sky'
 import { BlurText } from '../components/ui/blur-text'
 import { GhostButton, ShimmerButton } from '../components/ui/shimmer-button'
 import { Marquee } from '../components/ui/marquee'
-import { FunnelSimulator } from '../components/funnel-simulator'
+import { PirateFunnel } from '../components/pirate-funnel'
 
 const fadeUp = (delay: number) => ({
   initial: { opacity: 0, y: 16 },
@@ -35,8 +35,8 @@ export function Hero() {
         </h1>
 
         <motion.p {...fadeUp(0.8)} className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-pretty text-muted">
-          A Product &amp; GTM operator who takes the number personally: lead gen, qualification, booking and running the demo, so your calendar
-          fills with demos worth taking.
+          I'm the Product &amp; GTM operator who builds buttery-smooth B2B funnels, tools and handoffs included, so qualified leads slide from
+          first touch to a demo on your calendar.
         </motion.p>
 
         <motion.div {...fadeUp(0.95)} className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -55,9 +55,10 @@ export function Hero() {
           className="mx-auto mt-14 max-w-5xl"
         >
           <p className="mb-4 text-[15px] text-muted">
-            <span className="font-medium text-ink">Same leads, same team.</span> The only difference is who owns demos per month.
+            <span className="font-medium text-ink">A B2B SaaS pirate funnel (AARRR), before and after.</span> Same leads, same team. Flip it to
+            see what building the funnel does.
           </p>
-          <FunnelSimulator />
+          <PirateFunnel />
         </motion.div>
 
         <div className="mt-16">
