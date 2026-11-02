@@ -23,17 +23,16 @@ export const proof = {
   leadToConversion: Math.round((40 / 198) * 100), // 20
 }
 
-// Where I work in the stack. Fotos and Prava are the CRMs I ran in production; the rest are the
-// building blocks of the system. Swap in tool brands with honest levels when you want to name them.
+// The tools I build with, in the same set and categories as the Quota GTM template.
 export const stack = [
-  { name: 'Buying signals', role: 'Who is in-market' },
-  { name: 'Enrichment', role: 'Account and contact data' },
-  { name: 'ICP scoring', role: 'Who to work first' },
-  { name: 'Outbound sequences', role: 'Signal-based plays' },
-  { name: 'Booking links', role: 'High-intent bookings' },
-  { name: 'ROI models', role: 'Value engineering' },
-  { name: 'Fotos CRM', role: 'CRM, run end to end' },
-  { name: 'Prava CRM', role: 'CRM, run end to end' },
+  { name: 'Clay', role: 'Enrichment' },
+  { name: 'HubSpot', role: 'CRM' },
+  { name: 'Salesforce', role: 'CRM' },
+  { name: 'n8n', role: 'Automation' },
+  { name: 'Slack', role: 'Alerts and routing' },
+  { name: 'Claude', role: 'AI research' },
+  { name: 'OpenAI', role: 'Personalisation' },
+  { name: 'Snowflake', role: 'Warehouse' },
 ]
 
 export const caseFiles = [

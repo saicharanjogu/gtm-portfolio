@@ -17,7 +17,7 @@ export function Hero() {
           <span className="grid size-5 place-items-center rounded-full bg-brand-600 text-white">
             <Workflow className="size-3" />
           </span>
-          Signal-based outbound · Product &amp; GTM
+          Signal-based outbound with Clay, n8n and Claude
         </motion.span>
 
         <motion.h1 {...fadeUp(0.08)} className="relative mt-7 text-[2.5rem] leading-[1.05] font-semibold tracking-tight text-balance sm:text-[3.4rem]">
