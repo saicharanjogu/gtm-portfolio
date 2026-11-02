@@ -17,7 +17,7 @@ function ProfileCard() {
         </div>
       </div>
       <p className="mt-3 text-[13px] leading-snug text-muted">{profile.focus}</p>
-      <p className="mt-2 font-serif text-[1.6rem] leading-none text-ink italic">Sai Charan</p>
+      <p className="mt-3 pl-1 font-hand text-[1.1rem] leading-none text-ink">Sai Charan</p>
       <ul className="mt-3 space-y-2 border-t border-line pt-3 text-[13px] text-ink/80">
         <li className="flex items-center gap-2">
           <BarChart3 className="size-3.5 text-muted" /> {proof.leads}+ leads → {proof.demos}+ demos

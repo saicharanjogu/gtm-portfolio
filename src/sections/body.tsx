@@ -53,8 +53,8 @@ export function Note() {
             and value cases that get the POC <span className="font-serif text-[1.08em] text-brand-600 italic">funded and signed</span>.
           </p>
         </div>
-        <p className="mt-6 flex items-baseline gap-3">
-          <span className="font-serif text-3xl text-ink/80 italic">Sai Charan</span>
+        <p className="mt-7 flex items-baseline gap-3">
+          <span className="font-hand text-xl text-ink/80">Sai Charan</span>
           <span className="text-[12px] text-muted">
             {profile.name}, {profile.role}
           </span>

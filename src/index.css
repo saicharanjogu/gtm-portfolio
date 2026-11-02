@@ -3,6 +3,8 @@
 @theme static {
   --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
+  /* Handwriting for signatures and margin notes, as in the Quota template. */
+  --font-hand: "Homemade Apple", "Instrument Serif", cursive;
 
   --color-bg: #ffffff;
   --color-page: #eef0f4;

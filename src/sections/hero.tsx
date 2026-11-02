@@ -28,7 +28,7 @@ export function Hero() {
         <motion.h1 {...fadeUp(0.08)} className="relative mt-7 text-[2.5rem] leading-[1.05] font-semibold tracking-tight text-balance sm:text-[3.4rem]">
           I build signal-based outbound systems that book{' '}
           <span className="font-serif font-normal text-brand-600 italic">high-intent demos.</span>
-          <span aria-hidden className="absolute -top-9 right-0 hidden rotate-[-4deg] items-center gap-1 font-serif text-xl text-brand-600 italic sm:flex">
+          <span aria-hidden className="absolute -top-9 right-0 hidden rotate-[-4deg] items-center gap-1.5 font-hand text-[16px] leading-none text-brand-600 sm:flex">
             <CornerLeftDown className="size-4" /> then I build the value case
           </span>
         </motion.h1>
