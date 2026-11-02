@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'motion/react'
-import { BarChart3, Database } from 'lucide-react'
+import { BriefcaseBusiness, MapPin, Zap } from 'lucide-react'
 import { Logo } from './ui/logo'
-import { profile, proof, whatsappLink } from '../lib/content'
+import { profile, whatsappLink } from '../lib/content'
 import { NAV } from '../lib/nav'
 import { cn } from '../lib/utils'
 
@@ -22,13 +22,13 @@ function ProfileCard() {
       <p className="mt-2 font-hand text-[1.75rem] leading-none font-semibold text-ink">Sai Charan</p>
       <ul className="mt-3 space-y-2 border-t border-white/70 pt-3 text-[13px] text-ink/80">
         <li className="flex items-center gap-2">
-          <BarChart3 className="size-3.5 text-muted" /> {proof.leads}+ leads → {proof.demos}+ demos
+          <MapPin className="size-3.5 text-muted" /> Hyderabad, India
         </li>
         <li className="flex items-center gap-2">
-          <Database className="size-3.5 text-muted" /> Fotos + Prava CRM
+          <BriefcaseBusiness className="size-3.5 text-muted" /> 3 yrs in B2B GTM
         </li>
         <li className="flex items-center gap-2">
-          <Logo name="WhatsApp" className="size-3.5" /> Replies fastest on WhatsApp
+          <Zap className="size-3.5 text-brand-600" /> Open to full-time and fractional roles
         </li>
       </ul>
     </div>
@@ -74,7 +74,7 @@ export function Sidebar({ active }: { active: string }) {
             rel="noreferrer"
             className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-brand-600 py-3 text-[14px] font-medium text-white shadow-[0_8px_20px_-8px_rgba(31,79,224,0.7)] transition-colors hover:bg-brand-700"
           >
-            <Logo name="WhatsAppWhite" className="size-[18px]" /> Book a 20-min call
+            <Logo name="WhatsAppWhite" className="size-[18px]" /> Ping me
           </a>
           <a href={`mailto:${profile.email}`} aria-label="Email" className="card-shadow grid w-12 place-items-center rounded-xl border border-line bg-white text-ink transition-colors hover:text-brand-600">
             <Logo name="Gmail" className="size-4" />
@@ -131,7 +131,7 @@ export function MobileDock() {
           className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-brand-600 py-3 text-[14px] font-medium text-white shadow-[0_8px_20px_-8px_rgba(31,79,224,0.7)]"
         >
           <Logo name="WhatsAppWhite" className="size-[18px]" />
-          Book a 20-min call
+          Ping me
         </a>
         <a href={`mailto:${profile.email}`} tabIndex={show ? 0 : -1} aria-label="Email" className="grid size-11 place-items-center rounded-xl bg-white/70">
           <Logo name="Gmail" className="size-4" />
